@@ -34,7 +34,7 @@ var store = {
 	c: "ccc"
 }
 var key = "demo";
-var storeDemo = new storeData(key, store);
+var storeDemo = new storeDataJS(key, store);
 ```
 * 增删改查等
 
