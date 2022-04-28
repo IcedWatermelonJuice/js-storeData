@@ -30,10 +30,20 @@ var storeDataJS = function(dataKey, defaultData, isGM = false) {
 	}
 	this.dataKey = dataKey;
 	this.defaultData = this.check(defaultData) ? defaultData : {};
+	this.isGM = isGM;
 	this.data = {};
-	this.defaultGet = isGM ? (typeof GM_getValue === "function" ? GM_getValue : defaultFn) : localStorage.getItem;
-	this.defaultSet = isGM ? (typeof GM_setValue === "function" ? GM_setValue : defaultFn) : localStorage.setItem;
-	this.defaultRemove = isGM ? (typeof GM_deleteValue === "function" ? GM_deleteValue : defaultFn) : localStorage.removeItem;
+	this.defaultGet = function(key) {
+		return isGM ? (typeof GM_getValue === "function" ? GM_getValue(key) : defaultFn(key)) : localStorage
+			.getItem(key)
+	}
+	this.defaultSet = function(key, val) {
+		return isGM ? (typeof GM_setValue === "function" ? GM_setValue(key, val) : defaultFn(key, val)) :
+			localStorage.setItem(key, val)
+	}
+	this.defaultRemove = function(key) {
+		return isGM ? (typeof GM_deleteValue === "function" ? GM_deleteValue(key) : defaultFn(key)) :
+			localStorage.removeItem(key)
+	}
 	this.save = function() {
 		if (this.check(this.data)) {
 			this.defaultSet(this.dataKey, JSON.stringify(this.data))
@@ -43,7 +53,11 @@ var storeDataJS = function(dataKey, defaultData, isGM = false) {
 	}
 	this.init = function() {
 		let data = this.defaultGet(this.dataKey);
-		data = data ? JSON.parse(data) : {};
+		try {
+			data = data ? JSON.parse(data) : {};
+		} catch (e) {
+			data = {}
+		}
 		data = {
 			...this.defaultData,
 			...data
