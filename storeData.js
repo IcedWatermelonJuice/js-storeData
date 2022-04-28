@@ -7,7 +7,7 @@
 // @dayr         2022.4.29 GMT+0800 (中国标准时间)
 // @license      MIT License
 // @note         相关参考信息请前往greasyfork仓库或github仓库
-// @note         greasyfork仓库:
+// @note         greasyfork仓库:https://greasyfork.org/zh-CN/scripts/444155-js-storedata
 // @note         github仓库:https://github.com/IcedWatermelonJuice/js-storeData
 // ==/UserScript==
 var storeDataJS = function(dataKey, defaultData, isGM = false) {
