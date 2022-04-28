@@ -29,7 +29,7 @@
     
 ```javascript
 var store = {
-	a: "aaa"
+	a: "aaa",
 	b: "bbb",
 	c: "ccc"
 }
